@@ -6,6 +6,7 @@ import browserConfig from '../../Helpers/browserOptions';
 import ProductDetail from '../../Objects/productDetail';
 import ProductPopup from '../../Objects/productPopup';
 import Cart from '../../Objects/cart';
+import getUrl from '../../Helpers/url';
 
 
 let expect = chai.expect;
@@ -47,8 +48,8 @@ describe('Add product into cart', () => {
         await ProductPopup.addProductIntoCart(page); 
 
         // cart
-        const count = await Cart.getProductCount(page);
-        expect(count).to.equal(1);
+        expect(await getUrl(page)).to.equal(baseUrl + 'kosik');
+        expect(await Cart.getProductCount(page)).to.equal(1);
     });
 
     it('Add many same products into cart', async () => {
@@ -60,8 +61,8 @@ describe('Add product into cart', () => {
         await ProductPopup.addProductIntoCart(page); 
 
         // cart
-        const count = await Cart.getProductCount(page);
-        expect(count).to.equal(12);
+        expect(await getUrl(page)).to.equal(baseUrl + 'kosik');
+        expect(await Cart.getProductCount(page)).to.equal(12);
     });
 
     it('Add two same products into cart', async () => {
@@ -73,8 +74,8 @@ describe('Add product into cart', () => {
         await ProductPopup.addProductIntoCart(page); 
 
         // cart
-        const count = await Cart.getProductCount(page);
-        expect(count).to.equal(2);
+        expect(await getUrl(page)).to.equal(baseUrl + 'kosik');
+        expect(await Cart.getProductCount(page)).to.equal(2);
     });
 
     it('Increase quantity on product popup', async () => {
@@ -86,8 +87,8 @@ describe('Add product into cart', () => {
         await ProductPopup.addProductIntoCart(page, 2); 
 
         // cart
-        const count = await Cart.getProductCount(page);
-        expect(count).to.equal(2);
+        expect(await getUrl(page)).to.equal(baseUrl + 'kosik');
+        expect(await Cart.getProductCount(page)).to.equal(2);
     });
 
     it('Increase quantity on product popup to more than 10', async () => {
@@ -99,8 +100,8 @@ describe('Add product into cart', () => {
         await ProductPopup.addProductIntoCart(page, 12);
 
         // cart
-        const count = await Cart.getProductCount(page);
-        expect(count).to.equal(12);
+        expect(await getUrl(page)).to.equal(baseUrl + 'kosik');
+        expect(await Cart.getProductCount(page)).to.equal(12);
     });
 
     it('Decrease quantity on product popup', async () => {
@@ -112,7 +113,7 @@ describe('Add product into cart', () => {
         await ProductPopup.addProductIntoCart(page, 1); 
 
         // cart
-        const count = await Cart.getProductCount(page);
-        expect(count).to.equal(1);
+        expect(await getUrl(page)).to.equal(baseUrl + 'kosik');
+        expect(await Cart.getProductCount(page)).to.equal(1);     
     });    
 });

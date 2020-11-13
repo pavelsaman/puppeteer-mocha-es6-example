@@ -10,7 +10,7 @@ import ProductDetail from '../../Objects/productDetail';
 import ProductListing from '../../Objects/productListing';
 
 
-const baseUrl = config.baseUrl[process.env.OUTLET_ENV];
+const baseUrl = config.baseUrl[env.envWithLang()];
 const invalidSearchTerms = require('../../Resources/invalidSearchTerms.json');
 let searchTerm = (env.lang() === "cz") ? 'boty' : 'detska';
 

@@ -20,12 +20,12 @@
                 "--start-maximized"           
             ],
             "defaultViewport": null,
-            "slowMo": 300,
+            "slowMo": 100,
             "devtools": true          
         }
     },
-    "timeout": 20000,
-    "reqTimeout": 10000,
+    "timeout": 12000,
+    "reqTimeout": 8000,
     "baseUrl": {
         "dev-cz": "",
         "dev-sk": "",
