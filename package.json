@@ -1,7 +1,7 @@
 {
-    "name": "puppeteer-jest-es6-example",
+    "name": "puppeteer-mocha-es6-example",
     "version": "1.0.0",
-    "description": "",
+    "description": "Example e2e tests in puppeteer with mocha",
     "main": "",
     "scripts": {
         "t": "clear && mocha --require esm"
@@ -11,6 +11,7 @@
     "license": "ISC",
     "devDependencies": {},
     "dependencies": {
+        "axios": "^0.21.0",
         "chai": "^4.2.0",
         "dotenv": "^8.2.0",
         "esm": "^3.2.25",

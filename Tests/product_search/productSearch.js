@@ -1,4 +1,5 @@
 import puppeteer from 'puppeteer';
+import chai from 'chai';
 import config from '../../config';
 import * as env from '../../Helpers/env';
 import browserConfig from '../../Helpers/browserOptions';
@@ -10,6 +11,7 @@ import ProductDetail from '../../Objects/productDetail';
 import ProductListing from '../../Objects/productListing';
 
 
+const expect = chai.expect;
 const baseUrl = config.baseUrl[env.envWithLang()];
 const invalidSearchTerms = require('../../Resources/invalidSearchTerms.json');
 let searchTerm = (env.lang() === "cz") ? 'boty' : 'detska';
@@ -53,6 +55,13 @@ describe('Product search', () => {
     afterEach(async () => {
         await takeScreenshot(page, Date.now());
         await context.close();
+    });    
+
+    it('Fulltext input has max length', async () => {
+        const length = await page.$eval(Fulltext.input,
+            el => parseInt(el.getAttribute("maxlength"))
+        );
+        expect(length).to.equal(50);
     });
 
     it('Search with keyword and click glass', async () => {       
