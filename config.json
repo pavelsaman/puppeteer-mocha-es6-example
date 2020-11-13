@@ -1,0 +1,37 @@
+{
+    "browserOptions": {
+        "headless": {
+            "headless": true,
+            "args": [                
+                "--window-size=1920,1040"        
+            ],
+            "defaultViewport": null
+        },
+        "gui": {
+            "headless": false,
+            "args": [                
+                "--start-maximized"           
+            ],
+            "defaultViewport": null            
+        },
+        "debug": {
+            "headless": false,
+            "args": [                
+                "--start-maximized"           
+            ],
+            "defaultViewport": null,
+            "slowMo": 300,
+            "devtools": true          
+        }
+    },
+    "timeout": 20000,
+    "reqTimeout": 10000,
+    "baseUrl": {
+        "dev-cz": "",
+        "dev-sk": "",
+        "staging-cz": "",
+        "staging-sk": "",
+        "prod-cz": "https://alpinepro-outlet.cz/",
+        "prod-sk": "https://alpinepro-outlet.sk/"
+    }
+}
