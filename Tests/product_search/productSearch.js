@@ -14,7 +14,7 @@ import ProductListing from '../../Objects/productListing';
 const expect = chai.expect;
 const baseUrl = config.baseUrl[env.envWithLang()];
 const invalidSearchTerms = require('../../Resources/invalidSearchTerms.json');
-let searchTerm = (env.lang() === "cz") ? 'boty' : 'detska';
+let searchTerm = (env.lang() === "cz") ? 'boty' : 'detská';
 
 async function waitForSearchSuggestions (page, searchTerm) {    
     await Promise.all([
@@ -71,8 +71,7 @@ describe('Product search', () => {
         await page.waitForSelector(ProductListing.productItem);
     });
 
-    it('Search with national characters and click glass', async () => {
-        searchTerm = (env.lang() === "cz") ? "čepice" : "detská";    
+    it('Search with national characters and click glass', async () => {           
         await page.type(Fulltext.input, searchTerm);
         await waitForSearchSuggestions(page, searchTerm);
         await page.click(Fulltext.glass);
