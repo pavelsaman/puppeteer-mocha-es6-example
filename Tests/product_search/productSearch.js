@@ -2,6 +2,7 @@ import puppeteer from 'puppeteer';
 import config from '../../config';
 import * as env from '../../Helpers/env';
 import browserConfig from '../../Helpers/browserOptions';
+import takeScreenshot from '../../Helpers/screenshot';
 import Fulltext from '../../Objects/fulltext';
 import FlashMessage from '../../Objects/flashMessage';
 import InfoStripe from '../../Objects/infoStripe';
@@ -50,6 +51,7 @@ describe('Product search', () => {
     });
 
     afterEach(async () => {
+        await takeScreenshot(page, Date.now());
         await context.close();
     });
 

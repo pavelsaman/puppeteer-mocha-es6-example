@@ -12,7 +12,7 @@ let expect = chai.expect;
 const baseUrl = config.baseUrl[process.env.OUTLET_ENV];
 const productUrl = "panske-kalhoty-pamp/mpak175665";
 
-describe.only('Add product into cart', () => {
+describe('Add product into cart', () => {
 
     let browser, context, page;
 
