@@ -11,7 +11,7 @@ import getUrl from '../../Helpers/url';
 
 let expect = chai.expect;
 const baseUrl = config.baseUrl[process.env.OUTLET_ENV];
-const productUrl = "panske-kalhoty-pamp/mpak175665";
+const productUrl = "panske-kalhoty-olwen-3/mpap373990";
 
 describe('Add product into cart', () => {
 
@@ -28,7 +28,7 @@ describe('Add product into cart', () => {
     beforeEach(async () => {
         context = await browser.createIncognitoBrowserContext();
         page = await context.newPage();
-        await page.goto(baseUrl + productUrl);
+        await page.goto(baseUrl + productUrl, {waitUntil: 'networkidle0' });
         await page.waitForSelector(ProductDetail.addToCart,
             { visibility: true }
         );

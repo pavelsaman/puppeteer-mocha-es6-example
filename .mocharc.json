@@ -1,5 +1,11 @@
 {
     "timeout": 12000,
     "spec": "./Tests/**/*.js",
-    "reporter": "spec"
+    "require": [
+        "esm"
+    ],
+    "reporter": "mocha-multi-reporters",
+    "reporter-options": [
+        "configFile=reporter-options.json"
+    ]
 }

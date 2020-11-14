@@ -4,7 +4,8 @@
     "description": "Example e2e tests in puppeteer with mocha",
     "main": "",
     "scripts": {
-        "t": "clear && mocha --require esm"
+        "t": "clear && mocha",
+        "clean": "clear && rm -rf ./Results/Screenshots/* && rm ./Results/report.html"
     },
     "keywords": [],
     "author": "",
@@ -16,6 +17,8 @@
         "dotenv": "^8.2.0",
         "esm": "^3.2.25",
         "mocha": "^6.2.3",
+        "mocha-multi-reporters": "^1.5.1",
+        "mocha-simple-html-reporter": "^1.1.0",
         "puppeteer": "^5.4.1"
     }
 }

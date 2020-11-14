@@ -24,7 +24,7 @@
             "devtools": true          
         }
     },
-    "timeout": 12000,
+    "timeout": 20000,
     "reqTimeout": 8000,
     "baseUrl": {
         "dev-cz": "",

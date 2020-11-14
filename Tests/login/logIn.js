@@ -28,7 +28,7 @@ describe('Valid login', () => {
     beforeEach(async () => {
         context = await browser.createIncognitoBrowserContext();
         page = await context.newPage();
-        await page.goto(baseUrl);
+        await page.goto(baseUrl, {waitUntil: 'networkidle0' });
     });
 
     afterEach(async () => {
@@ -37,7 +37,7 @@ describe('Valid login', () => {
     });
 
     Object.entries(credentials).forEach(([key, c]) => {        
-        it('Login with email', async () => {
+        it('Login with ' + key, async () => {
 
             // home page
             await page.waitForSelector(Header.account, { visibility: true });

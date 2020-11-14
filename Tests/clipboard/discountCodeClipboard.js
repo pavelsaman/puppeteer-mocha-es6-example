@@ -10,7 +10,7 @@ import ProductDetail from '../../Objects/productDetail';
 
 const expect = chai.expect;
 const baseUrl = config.baseUrl[env.envWithLang()];
-const couponValue = 'PROMOTION';
+const couponValue = 'AKCE20';
 
 describe('Clipboard discout code', () => {
 
@@ -30,7 +30,7 @@ describe('Clipboard discout code', () => {
             'clipboard-read'            
         ]);
         page = await context.newPage();
-        await page.goto(baseUrl + 'produkty');
+        await page.goto(baseUrl + 'produkty', {waitUntil: 'networkidle0' });
         await page.waitForSelector(ProductListing.productItem,
             { visibility: true }
         );
@@ -56,7 +56,7 @@ describe('Clipboard discout code', () => {
         );
         
         // product detail page
-        await page.goto(baseUrl + productLink);
+        await page.goto(baseUrl + productLink, {waitUntil: 'networkidle0' });
         await Promise.all([            
             page.waitForSelector(ProductDetail.name, { visibility: true }),
             page.waitForSelector(ProductDetail.coupon, { visibility: true })
@@ -98,7 +98,7 @@ describe('Clipboard discout code', () => {
             ProductListing.productItem,
             (el) => el.getAttribute("href")
         );
-        await page.goto(baseUrl + productLink);
+        await page.goto(baseUrl + productLink, {waitUntil: 'networkidle0' });
         await Promise.all([    
             page.waitForSelector(ProductDetail.name, { visibility: true }),
             page.waitForSelector(ProductDetail.coupon), { visibility: true }
