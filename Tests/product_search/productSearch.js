@@ -45,7 +45,7 @@ describe('Product search', () => {
     beforeEach(async () => {
         context = await browser.createIncognitoBrowserContext();
         page = await context.newPage();
-        await page.goto(baseUrl, {waitUntil: 'networkidle0' });        
+        await page.goto(baseUrl, { waitUntil: 'networkidle0' });        
         await Promise.all([
             page.waitForSelector(Fulltext.input, { visibility: true }),
             page.waitForSelector(Fulltext.glass, { visibility: true })

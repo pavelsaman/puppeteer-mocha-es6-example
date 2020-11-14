@@ -28,7 +28,7 @@ describe('Add product into cart', () => {
     beforeEach(async () => {
         context = await browser.createIncognitoBrowserContext();
         page = await context.newPage();
-        await page.goto(baseUrl + productUrl, {waitUntil: 'networkidle0' });
+        await page.goto(baseUrl + productUrl, { waitUntil: 'networkidle0' });
         await page.waitForSelector(ProductDetail.addToCart,
             { visibility: true }
         );

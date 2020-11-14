@@ -16,7 +16,7 @@ async function sortProductListing (page, el) {
     const link = await page.$eval(el,
         selector => selector.getAttribute("href") 
     );
-    await page.goto(baseUrl + link, {waitUntil: 'networkidle0' });
+    await page.goto(baseUrl + link, { waitUntil: 'networkidle0' });
     await page.waitForSelector(ProductListing.productItem,
         { visibility: true }
     );
@@ -41,7 +41,7 @@ describe('Product sort', () => {
     beforeEach(async () => {
         context = await browser.createIncognitoBrowserContext();
         page = await context.newPage();
-        await page.goto(baseUrl + 'produkty', {waitUntil: 'networkidle0' });
+        await page.goto(baseUrl + 'produkty', { waitUntil: 'networkidle0' });
         await page.waitForSelector(ProductListing.productItem,
             { visibility: true }
         );

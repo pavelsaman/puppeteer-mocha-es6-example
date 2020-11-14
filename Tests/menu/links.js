@@ -26,7 +26,7 @@ describe('Menu links', () => {
     beforeEach(async () => {
         context = await browser.createIncognitoBrowserContext();
         page = await context.newPage();
-        await page.goto(baseUrl), {waitUntil: 'networkidle0' };
+        await page.goto(baseUrl), { waitUntil: 'networkidle0' };
     });
 
     afterEach(async () => {        
