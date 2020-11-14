@@ -1,5 +1,5 @@
 {
-    "timeout": 12000,
+    "timeout": 20000,
     "spec": "./Tests/**/*.js",
     "require": [
         "esm"

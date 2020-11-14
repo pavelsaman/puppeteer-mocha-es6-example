@@ -117,7 +117,7 @@ describe('Product search', () => {
         await waitForSearchSuggestions(page, searchTerm);
         await page.click(Fulltext.showMore);
         await page.waitForSelector(ProductListing.productItem);
-    }, config.timeout);
+    });
 
     it('Search with keyword and click on first item', async () => {
         await page.type(Fulltext.input, searchTerm);

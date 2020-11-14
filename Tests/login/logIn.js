@@ -7,7 +7,7 @@ import takeScreenshot from '../../Helpers/screenshot';
 import credentials from '../../Resources/credentials.json';
 import LoginPopup from '../../Objects/loginPopup';
 import Header from '../../Objects/header';
-import FlashMesage from '../../Objects/flashMessage';
+import FlashMessage from '../../Objects/flashMessage';
 import FBLoginPage from '../../Objects/fbLoginPage';
 
 
@@ -56,10 +56,10 @@ describe('Valid login', () => {
                 ]);
             } else {
                 await Promise.all([
-                    await page.click(LoginPopup.popup
-                        + ' >* ' + LoginPopup.logInButton
+                    page.click(LoginPopup.popup + ' >* ' 
+                        + LoginPopup.logInButton
                     ),
-                    page.waitForSelector(FlashMesage.info)
+                    page.waitForSelector(FlashMessage.info)
                 ]);    
             }            
     

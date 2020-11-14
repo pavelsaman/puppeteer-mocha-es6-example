@@ -10,7 +10,7 @@ class LoginPopup {
         this.facebook = 'a[title="Facebook"]';        
     }
 
-    async fillInCredentials (page, credentials, key) {
+    async fillInCredentials (page, credentials, key = undefined) {
         const loginPopup = await page.$(this.popup);
         const loginEmail = await loginPopup.$(this.email);
         const loginPassword = await loginPopup.$(this.password);
