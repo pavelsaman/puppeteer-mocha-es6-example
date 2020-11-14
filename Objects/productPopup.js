@@ -5,7 +5,7 @@ class ProductPopup {
     constructor () {
         this.addToCart = '.o-green-button.o-green-button--smaller';
         this.quantity = '#popup-product-quantity';
-        this.quantityInput = 'input[id="popup-product-quantity"]'
+        this.quantityInput = 'input[id="popup-product-quantity"]';
     }
 
     async addProductIntoCart (page, quantity = undefined) {

@@ -5,7 +5,8 @@ class ProductDetail {
         this.name = '.c-product-detail-main__info-title';
         this.addToCart = '#add-to-cart';
         this.quantity = '#product-detail-quantity';
-        this.quantityInput = 'input[id="product-detail-quantity"]'
+        this.quantityInput = 'input[id="product-detail-quantity"]';
+        this.coupon = '.c-product-detail-main__info-tag.c-product-detail-main__info-tag--coupon.js-product-coupon';
     }
 
     async addProductIntoCart (page, quantity = undefined) {
