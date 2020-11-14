@@ -1,3 +1,5 @@
+import FBLoginPage from './fbLoginPage';
+
 
 class LoginPopup {
     constructor () {
@@ -5,11 +7,7 @@ class LoginPopup {
         this.email = '#Email';
         this.password = '#Password';
         this.logInButton = '.o-button';
-        this.facebook = 'a[title="Facebook"]'
-        this.fbAcceptCookies = 'button[data-cookiebanner="accept_button"]';
-        this.fbEmail = '#email';
-        this.fbPassword = '#pass';
-        this.fbLoginButton = '#loginbutton';
+        this.facebook = 'a[title="Facebook"]';        
     }
 
     async fillInCredentials (page, credentials, key) {
@@ -21,16 +19,12 @@ class LoginPopup {
         if (key === 'facebook') {
             await Promise.all([
                 fbButton.click(),
-                page.waitForNavigation(),
-                page.waitForSelector(this.fbAcceptCookies)
+                page.waitForNavigation({ waitUntil: 'networkidle0' }),
+                page.waitForSelector(FBLoginPage.fbAcceptCookies)
             ]);
-            await page.click(this.fbAcceptCookies);
-            await page.type(this.fbEmail, credentials.name);
-            await page.type(this.fbPassword, credentials.password);
-            await Promise.all([
-                page.click(this.fbLoginButton),
-                page.waitForNavigation()
-            ]);
+            await page.click(FBLoginPage.fbAcceptCookies);
+            await page.type(FBLoginPage.fbEmail, credentials.name);
+            await page.type(FBLoginPage.fbPassword, credentials.password);            
         } else {
             // login popup
             if (credentials.name)

@@ -8,6 +8,7 @@ import credentials from '../../Resources/credentials.json';
 import LoginPopup from '../../Objects/loginPopup';
 import Header from '../../Objects/header';
 import FlashMesage from '../../Objects/flashMessage';
+import FBLoginPage from '../../Objects/fbLoginPage';
 
 
 const expect = chai.expect;
@@ -48,10 +49,19 @@ describe('Valid login', () => {
     
             // login popup        
             await LoginPopup.fillInCredentials(page, c, key);
-            await Promise.all([
-                page.click(LoginPopup.popup + ' >* ' + LoginPopup.logInButton),
-                page.waitForSelector(FlashMesage.info)
-            ]);
+            if (key === "facebook") {
+                await Promise.all([
+                    page.click(FBLoginPage.fbLoginButton),
+                    page.waitForNavigation({ waitUntil: 'networkidle0' })
+                ]);
+            } else {
+                await Promise.all([
+                    await page.click(LoginPopup.popup
+                        + ' >* ' + LoginPopup.logInButton
+                    ),
+                    page.waitForSelector(FlashMesage.info)
+                ]);    
+            }            
     
             // back at home page
             const name = await page.$eval(Header.account, el => el.innerText);
