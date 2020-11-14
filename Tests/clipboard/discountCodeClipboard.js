@@ -12,9 +12,9 @@ const expect = chai.expect;
 const baseUrl = config.baseUrl[env.envWithLang()];
 const couponValue = 'PROMOTION';
 
-describe.only('Clipboard discout code', () => {
+describe('Clipboard discout code', () => {
 
-let browser, context, page;
+    let browser, context, page;
 
     before(async () => {
         browser = await puppeteer.launch(browserConfig())

@@ -13,7 +13,7 @@ const baseUrl = config.baseUrl[env.envWithLang()];
 
 describe('Menu links', () => {
 
-let browser, context, page;
+    let browser, context, page;
 
     before(async () => {
         browser = await puppeteer.launch(browserConfig())

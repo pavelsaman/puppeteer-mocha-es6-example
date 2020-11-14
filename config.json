@@ -33,5 +33,9 @@
         "staging-sk": "",
         "prod-cz": "https://alpinepro-outlet.cz/",
         "prod-sk": "https://alpinepro-outlet.sk/"
+    },
+    "currency": {
+        "cz": "Kč",
+        "sk": "€"
     }
 }
