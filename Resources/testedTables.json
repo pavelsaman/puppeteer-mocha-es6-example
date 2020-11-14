@@ -1,4 +1,10 @@
-[
-    "iPad",
-    "iPad Pro"
-]
+{
+    "mobileMenu": [
+        "iPad",
+        "iPad Pro",
+        "iPad landscape"
+    ],
+    "desktopMenu": [
+        "iPad Pro landscape"
+    ]
+}

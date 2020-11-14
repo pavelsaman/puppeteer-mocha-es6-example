@@ -11,11 +11,10 @@ import testedTables from '../../Resources/testedTables.json';
 
 
 const baseUrl = config.baseUrl[env.envWithLang()];
-const testedDevices = testedTables.map(t => puppeteer.devices[t]);
 
-testedDevices.forEach(device => {
+testedTables.mobileMenu.forEach(device => {
 
-    describe(device.name + ' homepage view', () => {
+    describe(device + ' homepage view', () => {
 
         let browser, context, page;
     
@@ -30,7 +29,7 @@ testedDevices.forEach(device => {
         beforeEach(async () => {
             context = await browser.createIncognitoBrowserContext();
             page = await context.newPage();
-            await page.emulate(device);
+            await page.emulate(puppeteer.devices[device]);
             await page.goto(baseUrl, { waitUntil: 'networkidle0' });
         });
     
@@ -42,7 +41,11 @@ testedDevices.forEach(device => {
         it('Hamburger menu is visible', async () => {
         
             await page.waitForFunction(
-                selector => document.querySelector(selector),
+                selector => {
+                    let hamburger = document.querySelector(selector);
+                    return window.getComputedStyle(hamburger)
+                        .getPropertyValue('display') !== "none";
+                },
                 {},
                 Header.hamburger
             );
@@ -51,7 +54,11 @@ testedDevices.forEach(device => {
         it('Fulltext magnifying glass is visible', async () => {
         
             await page.waitForFunction(
-                selector => document.querySelector(selector),
+                selector => {
+                    let hamburger = document.querySelector(selector);
+                    return window.getComputedStyle(hamburger)
+                        .getPropertyValue('display') === "block";
+                },
                 {},
                 Header.glass
             );
@@ -73,7 +80,7 @@ testedDevices.forEach(device => {
                 page.waitForFunction(
                     selector => {
                         return document.querySelector(selector)
-                            .getAttribute("class").includes('active')
+                            .getAttribute("class").includes('active');
                     },
                     {},
                     Menu.container
@@ -85,7 +92,7 @@ testedDevices.forEach(device => {
                 page.waitForFunction(
                     selector => {
                         return !document.querySelector(selector)
-                            .getAttribute("class").includes('active')
+                            .getAttribute("class").includes('active');
                     },
                     {},
                     Menu.container
@@ -103,7 +110,7 @@ testedDevices.forEach(device => {
                 page.waitForFunction(
                     selector => {
                         return document.querySelector(selector)
-                            .getAttribute("class").includes('visible')
+                            .getAttribute("class").includes('visible');
                     },
                     {},
                     Fulltext.mobileSearch
@@ -118,12 +125,65 @@ testedDevices.forEach(device => {
                 page.waitForFunction(
                     selector => {
                         return !document.querySelector(selector)
-                            .getAttribute("class").includes('visible')
+                            .getAttribute("class").includes('visible');
                     },
                     {},
                     Fulltext.mobileSearch
                 )
             ]);
+        });
+    });
+});
+
+testedTables.desktopMenu.forEach(device => {
+    describe(device + ' homepage view', () => {
+    
+        let browser, context, page;
+        
+        before(async () => {
+            browser = await puppeteer.launch(browserConfig())
+        });
+    
+        after(async () => {
+            await browser.close();
+        });
+    
+        beforeEach(async () => {
+            context = await browser.createIncognitoBrowserContext();
+            page = await context.newPage();
+            await page.emulate(puppeteer.devices[device]);
+            await page.goto(baseUrl, { waitUntil: 'networkidle0' });
+        });
+    
+        afterEach(async () => {
+            await takeScreenshot(page, Date.now());
+            await context.close();
+        });
+    
+        it('Hamburger menu is not visible', async () => {
+        
+            await page.waitForFunction(
+                selector => {
+                    let hamburger = document.querySelector(selector);
+                    return window.getComputedStyle(hamburger)
+                        .getPropertyValue('display') === "none";
+                },
+                {},
+                Header.hamburger
+            );
+        });
+    
+        it('Fulltext magnifying glass is not visible', async () => {
+        
+            await page.waitForFunction(
+                selector => {
+                    let hamburger = document.querySelector(selector);
+                    return window.getComputedStyle(hamburger)
+                        .getPropertyValue('display') !== "block";
+                },
+                {},
+                Header.glass
+            );
         });
     });
 });
