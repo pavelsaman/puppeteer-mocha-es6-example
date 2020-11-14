@@ -15,7 +15,7 @@ const urls = [
     "alpine-pro-otevira-novou-prodejnu"
 ];
 
-describe('Product breadcrumbs', () => {
+describe('Breadcrumbs', () => {
 
     let browser, context, page;
 
