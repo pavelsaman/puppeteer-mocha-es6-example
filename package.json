@@ -5,7 +5,7 @@
     "main": "",
     "scripts": {
         "t": "clear && mocha",
-        "clean": "clear && rm -rf ./Results/Screenshots/* && rm ./Results/Invoices/* && rm ./Results/report.html"
+        "clean": "clear && rm -rf ./Results/ && mkdir -p ./Results/Screenshots"
     },
     "keywords": [],
     "author": "",

@@ -8,6 +8,7 @@ class Fulltext {
         this.showMore = '#search-more-link';
         this.searchContainer = '#search-result-container';
         this.suggestUrl = 'Product/Suggest?query={term}&pageSize=10';
+        this.mobileSearch = '#mobile-search';
     }
 }
 
