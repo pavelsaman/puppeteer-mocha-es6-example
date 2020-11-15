@@ -1,4 +1,6 @@
 import ProductPopup from './productPopup';
+import SizesPopup from './sizesPopup';
+
 
 class ProductDetail {
     constructor () {
@@ -7,6 +9,7 @@ class ProductDetail {
         this.quantity = '#product-detail-quantity';
         this.quantityInput = 'input[id="product-detail-quantity"]';
         this.coupon = '.c-product-detail-main__info-tag.c-product-detail-main__info-tag--coupon.js-product-coupon';
+        this.sizesLink = '#detail-size-table-toggle';
     }
 
     async addProductIntoCart (page, quantity = undefined) {
@@ -25,11 +28,19 @@ class ProductDetail {
                     document.querySelector(selector).click()
                 }, this.addToCart
             ),
-            page.waitForSelector(ProductPopup.addToCart,
-                { visibility: true }
+            page.waitForFunction(
+                selector => {
+                    let p = document.querySelector(selector);
+                    if (p) {
+                        return p.getAttribute("class").includes('visible');
+                    }
+                    return false;
+                },
+                {},
+                ProductPopup.popup
             )
         ]);
-    }
+    }    
 }
 
 export default new ProductDetail();

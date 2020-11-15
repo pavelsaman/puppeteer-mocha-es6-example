@@ -6,6 +6,8 @@ class ProductPopup {
         this.addToCart = '.o-green-button.o-green-button--smaller';
         this.quantity = '#popup-product-quantity';
         this.quantityInput = 'input[id="popup-product-quantity"]';
+        this.popup = '#cart-popup';
+        this.goBack = '.c-popup__info-buttons-link.js-close-popup';
     }
 
     async addProductIntoCart (page, quantity = undefined) {
@@ -26,7 +28,7 @@ class ProductPopup {
             page.waitForSelector(Cart.removeProduct, { visibility: true }),
             page.waitForSelector(Cart.continue, { visibility: true })
         ]);
-    }
+    }    
 }
 
 export default new ProductPopup();
