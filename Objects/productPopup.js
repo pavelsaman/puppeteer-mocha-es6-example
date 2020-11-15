@@ -25,6 +25,7 @@ class ProductPopup {
                     document.querySelector(selector).click()
                 }, this.addToCart
             ),
+            page.waitForNavigation({ waitUntil: 'networkidle0' }),
             page.waitForSelector(Cart.removeProduct, { visibility: true }),
             page.waitForSelector(Cart.continue, { visibility: true })
         ]);

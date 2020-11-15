@@ -38,7 +38,7 @@ describe('Add product into cart', () => {
         await context.close();
     });
 
-    it.only('Add one product into cart', async () => {
+    it('Add one product into cart', async () => {
 
         // product detail
         await ProductDetail.addProductIntoCart(page);
