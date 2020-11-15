@@ -6,7 +6,6 @@ import browserConfig from '../../Helpers/browserOptions';
 import ProductDetail from '../../Objects/productDetail';
 import ProductPopup from '../../Objects/productPopup';
 import Cart from '../../Objects/cart';
-import getUrl from '../../Helpers/url';
 
 
 let expect = chai.expect;
@@ -39,7 +38,7 @@ describe('Add product into cart', () => {
         await context.close();
     });
 
-    it('Add one product into cart', async () => {
+    it.only('Add one product into cart', async () => {
 
         // product detail
         await ProductDetail.addProductIntoCart(page);
@@ -48,7 +47,7 @@ describe('Add product into cart', () => {
         await ProductPopup.addProductIntoCart(page); 
 
         // cart
-        expect(await getUrl(page)).to.equal(baseUrl + 'kosik');
+        expect(page.url()).to.equal(baseUrl + 'kosik');
         expect(await Cart.getProductCount(page)).to.equal(1);
     });
 
@@ -61,7 +60,7 @@ describe('Add product into cart', () => {
         await ProductPopup.addProductIntoCart(page); 
 
         // cart
-        expect(await getUrl(page)).to.equal(baseUrl + 'kosik');
+        expect(page.url()).to.equal(baseUrl + 'kosik');
         expect(await Cart.getProductCount(page)).to.equal(12);
     });
 
@@ -74,7 +73,7 @@ describe('Add product into cart', () => {
         await ProductPopup.addProductIntoCart(page); 
 
         // cart
-        expect(await getUrl(page)).to.equal(baseUrl + 'kosik');
+        expect(page.url()).to.equal(baseUrl + 'kosik');
         expect(await Cart.getProductCount(page)).to.equal(2);
     });
 
@@ -87,7 +86,7 @@ describe('Add product into cart', () => {
         await ProductPopup.addProductIntoCart(page, 2); 
 
         // cart
-        expect(await getUrl(page)).to.equal(baseUrl + 'kosik');
+        expect(page.url()).to.equal(baseUrl + 'kosik');
         expect(await Cart.getProductCount(page)).to.equal(2);
     });
 
@@ -100,7 +99,7 @@ describe('Add product into cart', () => {
         await ProductPopup.addProductIntoCart(page, 12);
 
         // cart
-        expect(await getUrl(page)).to.equal(baseUrl + 'kosik');
+        expect(page.url()).to.equal(baseUrl + 'kosik');
         expect(await Cart.getProductCount(page)).to.equal(12);
     });
 
@@ -113,7 +112,7 @@ describe('Add product into cart', () => {
         await ProductPopup.addProductIntoCart(page, 1); 
 
         // cart
-        expect(await getUrl(page)).to.equal(baseUrl + 'kosik');
+        expect(page.url()).to.equal(baseUrl + 'kosik');
         expect(await Cart.getProductCount(page)).to.equal(1);     
     });    
 });
