@@ -37,5 +37,6 @@
     "currency": {
         "cz": "Kč",
         "sk": "€"
-    }
+    },
+    "testerEmail": "samanpavel@gmail.com"
 }

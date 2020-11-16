@@ -2,8 +2,10 @@
 
 class FlashMessage {
     constructor () {
-        this.info = '.c-flash-message.c-flash-message--info';
-        this.warning = '.c-flash-message.c-flash-message--warning';
+        this.msg = '.c-flash-message.c-flash-message--';
+        this.info = this.msg + 'info';
+        this.warning = this.msg + 'warning';
+        this.confirmation = this.msg + 'confirmation';
     }
 }
 
