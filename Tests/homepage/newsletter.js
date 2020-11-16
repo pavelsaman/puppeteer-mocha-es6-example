@@ -6,6 +6,7 @@ import browserConfig from '../../Helpers/browserOptions';
 import takeScreenshot from '../../Helpers/screenshot';
 import Newsletter from '../../Objects/newsletter';
 import FlashMessage from '../../Objects/flashMessage';
+import personalDataLinks from '../../Resources/personalDataInfoLinks.json';
 
 
 const expect = chai.expect;
@@ -56,5 +57,19 @@ describe('Newsletter', () => {
                 FlashMessage.confirmation
             )
         ]);
+    });
+
+    it('Newletter contains link to more information', async () => {
+
+        await page.waitForSelector(Newsletter.link);
+        const hrefAttr = await page.$eval(
+            Newsletter.link,
+            e => e.getAttribute('href')
+        );
+        expect(hrefAttr)
+            .to.equal(
+                (env.lang() === 'cz') 
+                    ? personalDataLinks.cz : personalDataLinks.sk
+            );
     });
 });
