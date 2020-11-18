@@ -46,7 +46,7 @@ async function goIntoOrders (page) {
     ]);
 }
 
-describe('Orders', () => {
+describe('Profile orders', () => {
 
     let browser, context, page;
 
