@@ -4,7 +4,6 @@ class Cart {
         this.continue = '.c-cart-buttons__continue.o-button';
         this.productQuantity = '.c-step-1__item-select';
         this.removeProduct = '.c-step-1__item-remove';
-        this.goShopping = 'a[href="/"]';
         this.warning = '.c-step-1__warning';
         this.steps = {
             one: new Cart1(),
@@ -32,7 +31,8 @@ class Cart {
 
 class Cart1 {
     constructor () {
-
+        this.warning = '.c-step-1__warning';
+        this.goShopping = 'a[href="/"]';
     }
 }
 
