@@ -22,7 +22,7 @@ class Cart {
     }
 
     async getProductCount (page) {
-        return await page.evaluate(selector => {
+        return page.evaluate(selector => {
                 return parseInt(document.querySelector(selector 
                     + ' > [selected="selected"]').innerText)
             }, this.productQuantity
