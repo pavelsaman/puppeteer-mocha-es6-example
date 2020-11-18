@@ -8,6 +8,7 @@ class ProfileHomepage {
         this.confirmNewPassword = '#ConfirmNewPassword';
         this.showPasswordFields = '#password-form-link';
         this.save = '#submit-button';
+        this.newPasswordError = '#ConfirmNewPassword-error';
     }
 
     async fillInPassword (page, oldPwd, newPwd, confirmNewPwd) {

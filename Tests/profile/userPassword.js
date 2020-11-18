@@ -217,4 +217,80 @@ describe('User password', () => {
             ProfileMenu.logout
         );
     });
+
+    it('Cannot change password when wrong one is provided', async () => {
+
+        // log in
+        await page.click(Header.account);
+        await LoginPopup.fillInCredentials(page, credentials.email);
+        await Promise.all([
+            page.click(LoginPopup.logInButton),
+            flashIsVisible(page, FlashMessage.info)
+        ]);        
+
+        // go to user profile, password fields are hidden, save btn is disabled
+        await Promise.all([
+            page.evaluate(
+                selector => {
+                    document.querySelector(selector).click()
+                },
+                Header.account
+            ),
+            page.waitForNavigation({ waitUntil: 'networkidle0'}),
+            passwordFieldsAreNotVisible(page),
+            saveBtnIsDisabled(page)
+        ]);
+
+        // fill in wrong current password
+        await page.click(ProfileHomepage.showPasswordFields);
+        await ProfileHomepage.fillInPassword(
+            page,
+            newPassword,
+            newPassword,
+            newPassword
+        );
+        await Promise.all([
+            page.click(ProfileHomepage.save),
+            flashIsVisible(page, FlashMessage.warning),
+            passwordFieldsAreNotVisible(page),
+            saveBtnIsDisabled(page)
+        ]);
+    });
+
+    it('Cannot change password when new passwords differ', async () => {
+
+        // log in
+        await page.click(Header.account);
+        await LoginPopup.fillInCredentials(page, credentials.email);
+        await Promise.all([
+            page.click(LoginPopup.logInButton),
+            flashIsVisible(page, FlashMessage.info)
+        ]);        
+
+        // go to user profile, password fields are hidden, save btn is disabled
+        await Promise.all([
+            page.evaluate(
+                selector => {
+                    document.querySelector(selector).click()
+                },
+                Header.account
+            ),
+            page.waitForNavigation({ waitUntil: 'networkidle0'}),
+            passwordFieldsAreNotVisible(page),
+            saveBtnIsDisabled(page)
+        ]);
+
+        // fill in wrong current password
+        await page.click(ProfileHomepage.showPasswordFields);
+        await ProfileHomepage.fillInPassword(
+            page,
+            newPassword,
+            newPassword,
+            newPassword + newPassword
+        );
+        await Promise.all([
+            page.click(ProfileHomepage.save),
+            page.waitForSelector(ProfileHomepage.newPasswordError)
+        ]);
+    });
 });
