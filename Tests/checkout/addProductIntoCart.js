@@ -12,19 +12,19 @@ let expect = chai.expect;
 const baseUrl = config.baseUrl[process.env.OUTLET_ENV];
 const productUrl = "panske-kalhoty-olwen-3/mpap373990";
 
-describe('Add product into cart', () => {
+suite('Add product into cart', () => {
 
     let browser, context, page;
 
-    before(async () => {
+    suiteSetup(async () => {
         browser = await puppeteer.launch(browserConfig());
     });
 
-    after(async () => {
+    suiteTeardown(async () => {
         browser.close();
     });
 
-    beforeEach(async () => {
+    setup(async () => {
         context = await browser.createIncognitoBrowserContext();
         page = await context.newPage();
         await page.goto(baseUrl + productUrl, { waitUntil: 'networkidle0' });
@@ -33,12 +33,12 @@ describe('Add product into cart', () => {
         );
     });
 
-    afterEach(async () => {
+    teardown(async () => {
         await takeScreenshot(page, Date.now());
         await context.close();
     });
 
-    it('Add one product into cart', async () => {
+    test('Add one product into cart', async () => {
 
         // product detail
         await ProductDetail.addProductIntoCart(page);
@@ -51,7 +51,7 @@ describe('Add product into cart', () => {
         expect(await Cart.getProductCount(page)).to.equal(1);
     });
 
-    it('Add many same products into cart', async () => {
+    test('Add many same products into cart', async () => {
 
         // product detail
         await ProductDetail.addProductIntoCart(page, 12);
@@ -64,7 +64,7 @@ describe('Add product into cart', () => {
         expect(await Cart.getProductCount(page)).to.equal(12);
     });
 
-    it('Add two same products into cart', async () => {
+    test('Add two same products into cart', async () => {
 
         // product detail
         await ProductDetail.addProductIntoCart(page, 2);
@@ -77,7 +77,7 @@ describe('Add product into cart', () => {
         expect(await Cart.getProductCount(page)).to.equal(2);
     });
 
-    it('Increase quantity on product popup', async () => {
+    test('Increase quantity on product popup', async () => {
 
         // product detail
         await ProductDetail.addProductIntoCart(page);
@@ -90,7 +90,7 @@ describe('Add product into cart', () => {
         expect(await Cart.getProductCount(page)).to.equal(2);
     });
 
-    it('Increase quantity on product popup to more than 10', async () => {
+    test('Increase quantity on product popup to more than 10', async () => {
 
         // product detail
         await ProductDetail.addProductIntoCart(page);
@@ -103,7 +103,7 @@ describe('Add product into cart', () => {
         expect(await Cart.getProductCount(page)).to.equal(12);
     });
 
-    it('Decrease quantity on product popup', async () => {
+    test('Decrease quantity on product popup', async () => {
 
         // product detail
         await ProductDetail.addProductIntoCart(page, 2);

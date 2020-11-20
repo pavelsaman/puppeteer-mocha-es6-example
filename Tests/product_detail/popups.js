@@ -44,30 +44,30 @@ function popupIsClosed(page, popupSelector) {
     );
 }
 
-describe('Popups on product detail', () => {
+suite('Popups on product detail', () => {
 
     let browser, context, page;
 
-    before(async () => {
+    suiteSetup(async () => {
         browser = await puppeteer.launch(browserConfig())
     });
 
-    after(async () => {
+    suiteTeardown(async () => {
         await browser.close();
     });
 
-    beforeEach(async () => {
+    setup(async () => {
         context = await browser.createIncognitoBrowserContext();
         page = await context.newPage();
         await page.goto(baseUrl + productUrl, { waitUntil: 'networkidle0' });
     });
 
-    afterEach(async () => {
+    teardown(async () => {
         await takeScreenshot(page, Date.now());
         await context.close();
     });
 
-    it('Open and close sizes popup', async () => {
+    test('Open and close sizes popup', async () => {
         
         await page.waitForSelector(ProductDetail.sizesLink,
             { visibility: true }
@@ -95,7 +95,7 @@ describe('Popups on product detail', () => {
         ]);
     });
 
-    it('Open and close product and sizes popup', async () => {
+    test('Open and close product and sizes popup', async () => {
         
         // open and close product popup        
         await ProductDetail.addProductIntoCart(page, 1);

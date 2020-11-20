@@ -12,31 +12,31 @@ import personalDataLinks from '../../Resources/personalDataInfoLinks.json';
 const expect = chai.expect;
 const baseUrl = config.baseUrl[env.envWithLang()];
 
-describe('Newsletter', () => {
+suite('Newsletter', () => {
 
     let browser, context, page;
 
-    before(async () => {
+    suiteSetup(async () => {
         browser = await puppeteer.launch(browserConfig())
     });
 
-    after(async () => {
+    suiteTeardown(async () => {
         await browser.close();
     });
 
-    beforeEach(async () => {
+    setup(async () => {
         context = await browser.createIncognitoBrowserContext();
         page = await context.newPage();
         await page.goto(baseUrl, {waitUntil: 'networkidle0' });
         await page.waitForSelector(Newsletter.email);
     });
 
-    afterEach(async () => {
+    teardown(async () => {
         await takeScreenshot(page, Date.now());
         await context.close();
     });
 
-    it('Email input is required', async () => {
+    test('Email input is required', async () => {
 
         const emailIsRequired = await page.$eval(
             Newsletter.email,
@@ -45,7 +45,7 @@ describe('Newsletter', () => {
         expect(emailIsRequired).to.be.true;    
     });
 
-    it('Sign up for newsletter', async () => {
+    test('Sign up for newsletter', async () => {
 
         await page.type(Newsletter.email, config.testerEmail);
         await page.click(Newsletter.checkbox);
@@ -59,7 +59,7 @@ describe('Newsletter', () => {
         ]);
     });
 
-    it('Newletter contains link to more information', async () => {
+    test('Newletter contains link to more information', async () => {
 
         await page.waitForSelector(Newsletter.link);
         const hrefAttr = await page.$eval(

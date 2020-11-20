@@ -10,30 +10,30 @@ import emails from '../../Resources/clientEmails.json';
 const expect = chai.expect;
 const baseUrl = config.baseUrl[env.envWithLang()];
 
-describe('Email', () => {
+suite('Email', () => {
 
     let browser, context, page;
 
-    before(async () => {
+    suiteSetup(async () => {
         browser = await puppeteer.launch(browserConfig())
     });
 
-    after(async () => {
+    suiteTeardown(async () => {
         await browser.close();
     });
 
-    beforeEach(async () => {
+    setup(async () => {
         context = await browser.createIncognitoBrowserContext();
         page = await context.newPage();
         await page.goto(baseUrl, { waitUntil: 'networkidle0' });
     });
 
-    afterEach(async () => {
+    teardown(async () => {
         await takeScreenshot(page, Date.now());
         await context.close();
     });
 
-    it('Mailto in email links', async () => {
+    test('Mailto in email links', async () => {
     
         const emailLinks = await page.$$('[href="mailto:' 
             + emails[env.lang()] + '"]'

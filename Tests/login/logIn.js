@@ -14,31 +14,31 @@ import FBLoginPage from '../../Objects/fbLoginPage';
 const expect = chai.expect;
 const baseUrl = config.baseUrl[env.envWithLang()];
 
-describe('Valid login', () => {
+suite('Valid login', () => {
 
     let browser, context, page;
 
-    before(async () => {
+    suiteSetup(async () => {
         browser = await puppeteer.launch(browserConfig())
     });
 
-    after(async () => {
+    suiteTeardown(async () => {
         await browser.close();
     });
 
-    beforeEach(async () => {
+    setup(async () => {
         context = await browser.createIncognitoBrowserContext();
         page = await context.newPage();
         await page.goto(baseUrl, {waitUntil: 'networkidle0' });
     });
 
-    afterEach(async () => {
+    teardown(async () => {
         await takeScreenshot(page, Date.now());
         await context.close();
     });
 
     Object.entries(credentials).forEach(([key, c]) => {        
-        it('Login with ' + key, async () => {
+        test('Login with ' + key, async () => {
 
             // home page
             await page.waitForSelector(Header.account, { visibility: true });

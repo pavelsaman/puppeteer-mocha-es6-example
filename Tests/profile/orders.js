@@ -46,30 +46,30 @@ async function goIntoOrders (page) {
     ]);
 }
 
-describe('Profile orders', () => {
+suite('Profile orders', () => {
 
     let browser, context, page;
 
-    before(async () => {
+    suiteSetup(async () => {
         browser = await puppeteer.launch(browserConfig())
     });
 
-    after(async () => {
+    suiteTeardown(async () => {
         await browser.close();
     });
 
-    beforeEach(async () => {
+    setup(async () => {
         context = await browser.createIncognitoBrowserContext();
         page = await context.newPage();
         await page.goto(baseUrl, { waitUntil: 'networkidle0' });
     });
 
-    afterEach(async () => {
+    teardown(async () => {
         await takeScreenshot(page, Date.now());
         await context.close();
     });
 
-    it('Open and close order detail', async () => {
+    test('Open and close order detail', async () => {
         
         await logInWithEmail(page, credentials);
         await goIntoOrders(page);
@@ -90,7 +90,7 @@ describe('Profile orders', () => {
         ); 
     });
 
-    it('Open multiple order details', async () => {
+    test('Open multiple order details', async () => {
         
         await logInWithEmail(page, credentials);
         await goIntoOrders(page);
@@ -118,7 +118,7 @@ describe('Profile orders', () => {
         );
     });
 
-    it('Go to product detail page', async () => {
+    test('Go to product detail page', async () => {
         
         await logInWithEmail(page, credentials);
         await goIntoOrders(page);
@@ -137,7 +137,7 @@ describe('Profile orders', () => {
         ]);
     });
 
-    it('Product link is beautiful', async () => {
+    test('Product link is beautiful', async () => {
         await logInWithEmail(page, credentials);
         await goIntoOrders(page);
 

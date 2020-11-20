@@ -11,30 +11,30 @@ import CookieStripe from '../../Objects/cookieStripe';
 const expect = chai.expect;
 const baseUrl = config.baseUrl[env.envWithLang()];
 
-describe('Cookies', () => {
+suite('Cookies', () => {
 
     let browser, context, page;
 
-    before(async () => {
+    suiteSetup(async () => {
         browser = await puppeteer.launch(browserConfig())
     });
 
-    after(async () => {
+    suiteTeardown(async () => {
         await browser.close();
     });
 
-    beforeEach(async () => {
+    setup(async () => {
         context = await browser.createIncognitoBrowserContext();
         page = await context.newPage();
         await page.goto(baseUrl, {waitUntil: 'networkidle2' });
     });
 
-    afterEach(async () => {
+    teardown(async () => {
         await takeScreenshot(page, Date.now());
         await context.close();
     });
 
-    it('Cookie is saved after confirmation', async () => {
+    test('Cookie is saved after confirmation', async () => {
 
         await page.waitForSelector(CookieStripe.cookieStripe);
         let cookies = await page.cookies();

@@ -15,31 +15,31 @@ const urls = [
     "alpine-pro-otevira-novou-prodejnu"
 ];
 
-describe('Breadcrumbs', () => {
+suite('Breadcrumbs', () => {
 
     let browser, context, page;
 
-    before(async () => {
+    suiteSetup(async () => {
         browser = await puppeteer.launch(browserConfig())
     });
 
-    after(async () => {
+    suiteTeardown(async () => {
         await browser.close();
     });
 
-    beforeEach(async () => {
+    setup(async () => {
         context = await browser.createIncognitoBrowserContext();
         page = await context.newPage();
         await page.goto(baseUrl);
     });
 
-    afterEach(async () => {
+    teardown(async () => {
         await takeScreenshot(page, Date.now());
         await context.close();
     });
 
     urls.forEach(link => {
-        it('Navigate breadcrumbs from: ' + link, async () => {
+        test('Navigate breadcrumbs from: ' + link, async () => {
             await page.goto(baseUrl + link, { waitUntil: 'networkidle0' });
             const breadcrumbLinks = await page.$$eval(
                 Breadcrumbs.item,

@@ -11,19 +11,19 @@ import Cart from '../../Objects/cart';
 const expect = chai.expect;
 const baseUrl = config.baseUrl[env.envWithLang()];
 
-describe('Empty cart', () => {
+suite('Empty cart', () => {
 
     let browser, context, page;
 
-    before(async () => {
+    suiteSetup(async () => {
         browser = await puppeteer.launch(browserConfig())
     });
 
-    after(async () => {
+    suiteTeardown(async () => {
         await browser.close();
     });
 
-    beforeEach(async () => {
+    setup(async () => {
         context = await browser.createIncognitoBrowserContext();
         page = await context.newPage();
         await page.goto(baseUrl), { waitUntil: 'networkidle0' };
@@ -38,11 +38,11 @@ describe('Empty cart', () => {
         ]);
     });
 
-    afterEach(async () => {        
+    teardown(async () => {        
         await context.close();
     });
 
-    it('Correct email', async () => {
+    test('Correct email', async () => {
 
         const emailLinks = await page.$$('[href="mailto:' 
             + emails[env.lang()] + '"]'
@@ -51,7 +51,7 @@ describe('Empty cart', () => {
         expect(emailLinks.length).to.equal(2);    
     });
 
-    it('Can go back to homepage', async () => {
+    test('Can go back to homepage', async () => {
 
         await Promise.all([
             page.click(Cart.steps.one.goShopping),
@@ -62,7 +62,7 @@ describe('Empty cart', () => {
         expect(url).to.equal(baseUrl);
     });
 
-    it('Warning message is visible', async () => {
+    test('Warning message is visible', async () => {
 
         await page.waitForSelector(Cart.steps.one.warning);
     });

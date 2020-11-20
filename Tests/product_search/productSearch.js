@@ -30,19 +30,19 @@ async function waitForSearchSuggestions (page, searchTerm) {
     ]);
 }
 
-describe('Product search', () => {
+suite('Product search', () => {
 
     let browser, context, page;
 
-    before(async () => {
+    suiteSetup(async () => {
         browser = await puppeteer.launch(browserConfig())
     });
     
-    after(async () => {
+    suiteTeardown(async () => {
         await browser.close();
     });
 
-    beforeEach(async () => {
+    setup(async () => {
         context = await browser.createIncognitoBrowserContext();
         page = await context.newPage();
         await page.goto(baseUrl, { waitUntil: 'networkidle0' });        
@@ -52,26 +52,26 @@ describe('Product search', () => {
         ]);
     });
 
-    afterEach(async () => {
+    teardown(async () => {
         await takeScreenshot(page, Date.now());
         await context.close();
     });    
 
-    it('Fulltext input has max length', async () => {
+    test('Fulltext input has max length', async () => {
         const length = await page.$eval(Fulltext.input,
             el => parseInt(el.getAttribute("maxlength"))
         );
         expect(length).to.equal(50);
     });
 
-    it('Search with keyword and click glass', async () => {       
+    test('Search with keyword and click glass', async () => {       
         await page.type(Fulltext.input, searchTerm);
         await waitForSearchSuggestions(page, searchTerm);
         await page.click(Fulltext.glass);
         await page.waitForSelector(ProductListing.productItem);
     });
 
-    it('Search with national characters and click glass', async () => {           
+    test('Search with national characters and click glass', async () => {           
         await page.type(Fulltext.input, searchTerm);
         await waitForSearchSuggestions(page, searchTerm);
         await page.click(Fulltext.glass);
@@ -79,7 +79,7 @@ describe('Product search', () => {
     });
 
     if (env.lang() === "cz") {
-        it('Search with hyphenated keyword and click glass', async () => {      
+        test('Search with hyphenated keyword and click glass', async () => {      
             await page.type(Fulltext.input, searchTerm);
             await waitForSearchSuggestions(page, searchTerm);
             await page.click(Fulltext.glass);
@@ -87,12 +87,12 @@ describe('Product search', () => {
         });
     }
 
-    it('Search with empty string', async () => {       
+    test('Search with empty string', async () => {       
         await page.click(Fulltext.glass);
         await page.waitForSelector(ProductListing.productItem);
     });
 
-    it('Dropdown disappears after clicking close', async () => {
+    test('Dropdown disappears after clicking close', async () => {
         await page.type(Fulltext.input, searchTerm);        
         await waitForSearchSuggestions(page, searchTerm);
         await page.click(Fulltext.close);
@@ -102,7 +102,7 @@ describe('Product search', () => {
         ]);
     });
 
-    it('Dropdown disappears after clicking elsewhere', async () => {
+    test('Dropdown disappears after clicking elsewhere', async () => {
         await page.type(Fulltext.input, searchTerm);        
         await waitForSearchSuggestions(page, searchTerm);
         await page.click(InfoStripe.stripe);
@@ -112,14 +112,14 @@ describe('Product search', () => {
         ]);
     });
 
-    it('Search with keyword and click "show more"', async () => {
+    test('Search with keyword and click "show more"', async () => {
         await page.type(Fulltext.input, searchTerm);
         await waitForSearchSuggestions(page, searchTerm);
         await page.click(Fulltext.showMore);
         await page.waitForSelector(ProductListing.productItem);
     });
 
-    it('Search with keyword and click on first item', async () => {
+    test('Search with keyword and click on first item', async () => {
         await page.type(Fulltext.input, searchTerm);
         await waitForSearchSuggestions(page, searchTerm);
         const productLinks = await page.$$(Fulltext.searchContainer + ' > a');
@@ -127,7 +127,7 @@ describe('Product search', () => {
         await page.waitForSelector(ProductDetail.name);
     });
 
-    it('Search with keyword and click on second item', async () => {
+    test('Search with keyword and click on second item', async () => {
         await page.type(Fulltext.input, searchTerm);
         await waitForSearchSuggestions(page, searchTerm);
         const productLinks = await page.$$(Fulltext.searchContainer + ' > a');
@@ -136,7 +136,7 @@ describe('Product search', () => {
     });
 
     invalidSearchTerms.forEach(term => {
-        it('Search for invalid term "' + term + '"', async () => {
+        test('Search for invalid term "' + term + '"', async () => {
             await page.type(Fulltext.input, term);
             await page.waitForSelector(Fulltext.close, { visibility: true });
             await page.click(Fulltext.glass);

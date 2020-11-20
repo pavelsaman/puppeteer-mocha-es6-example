@@ -10,30 +10,30 @@ import ProductListing from '../../Objects/productListing';
 const expect = chai.expect;
 const baseUrl = config.baseUrl[env.envWithLang()];
 
-describe('Product URLs', () => {
+suite('Product URLs', () => {
 
     let browser, context, page;
 
-    before(async () => {
+    suiteSetup(async () => {
         browser = await puppeteer.launch(browserConfig())
     });
 
-    after(async () => {
+    suiteTeardown(async () => {
         await browser.close();
     });
 
-    beforeEach(async () => {
+    setup(async () => {
         context = await browser.createIncognitoBrowserContext();
         page = await context.newPage();
         await page.goto(baseUrl + 'produkty', { waitUntil: 'networkidle0' });
     });
 
-    afterEach(async () => {
+    teardown(async () => {
         await takeScreenshot(page, Date.now());
         await context.close();
     });
 
-    it('Product detail page has nice URL', async () => {
+    test('Product detail page has nice URL', async () => {
     
         const product = await page.$$(ProductListing.productItem);
 

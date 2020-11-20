@@ -32,31 +32,31 @@ function waitForSelected (page, el, text) {
     );
 }
 
-describe('Create order', () => {
+suite('Create order', () => {
 
     let browser, context, page;
 
-    before(async () => {
-        browser = await puppeteer.launch(browserConfig())
+    suiteSetup(async () => {
+        browser = await puppeteer.launch(browserConfig());        
     });
 
-    after(async () => {
+    suiteTeardown(async () => {
         await browser.close();
     });
 
-    beforeEach(async () => {
+    setup(async () => {
         context = await browser.createIncognitoBrowserContext();
         page = await context.newPage();
         await page.goto(baseUrl, { waitUntil: 'networkidle0' });
     });
 
-    afterEach(async () => {
+    teardown(async () => {
         await takeScreenshot(page, Date.now());
         await context.close();
     });
 
     orderData.forEach(data => {
-        it('Create order', async () => {
+        test('Create order', async () => {
             
             await page.goto(baseUrl + productUrl, 
                 { waitUntil: 'networkidle0' }
@@ -120,7 +120,6 @@ describe('Create order', () => {
                     env.lang()
                 )
             ]);
-
         }).timeout(config.timeout + 15000);
     }); 
 });

@@ -26,19 +26,19 @@ async function sortProductListing (page, el) {
     expect(c).to.contain('active');
 }
 
-describe('Product sort', () => {
+suite('Product sort', () => {
 
     let browser, context, page;
 
-    before(async () => {
+    suiteSetup(async () => {
         browser = await puppeteer.launch(browserConfig())
     });
 
-    after(async () => {
+    suiteTeardown(async () => {
         await browser.close();
     });
 
-    beforeEach(async () => {
+    setup(async () => {
         context = await browser.createIncognitoBrowserContext();
         page = await context.newPage();
         await page.goto(baseUrl + 'produkty', { waitUntil: 'networkidle0' });
@@ -47,12 +47,12 @@ describe('Product sort', () => {
         );
     });
 
-    afterEach(async () => {
+    teardown(async () => {
         await takeScreenshot(page, Date.now());
         await context.close();
     });
 
-    it('Sort products by cheapest', async () => {
+    test('Sort products by cheapest', async () => {
 
         // sort
         await sortProductListing(page, ProductSort.cheapest);
@@ -78,7 +78,7 @@ describe('Product sort', () => {
         expect(prices).to.have.ordered.members(orderedPrices);       
     });
 
-    it('Sort products by the most expensive', async () => {
+    test('Sort products by the most expensive', async () => {
 
         // sort
         await sortProductListing(page, ProductSort.mostExpensive);
@@ -104,7 +104,7 @@ describe('Product sort', () => {
         expect(prices).to.have.ordered.members(orderedPrices);       
     });
 
-    it('Sort products by the biggest discount', async () => {
+    test('Sort products by the biggest discount', async () => {
 
         // sort
         await sortProductListing(page, ProductSort.biggestDiscount);

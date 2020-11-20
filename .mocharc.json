@@ -7,5 +7,6 @@
     "reporter": "mocha-multi-reporters",
     "reporter-options": [
         "configFile=reporter-options.json"
-    ]
+    ],
+    "ui": "tdd"
 }

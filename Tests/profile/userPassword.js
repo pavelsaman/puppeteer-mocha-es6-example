@@ -87,30 +87,30 @@ async function flashIsVisible (page, selector) {
     );
 }
 
-describe('User password', () => {
+suite('User password', () => {
 
     let browser, context, page;
 
-    before(async () => {
+    suiteSetup(async () => {
         browser = await puppeteer.launch(browserConfig())
     });
 
-    after(async () => {
+    suiteTeardown(async () => {
         await browser.close();
     });
 
-    beforeEach(async () => {
+    setup(async () => {
         context = await browser.createIncognitoBrowserContext();
         page = await context.newPage();
         await page.goto(baseUrl, { waitUntil: 'networkidle0' });
     });
 
-    afterEach(async () => {
+    teardown(async () => {
         await takeScreenshot(page, Date.now());
         await context.close();
     });
 
-    it('Change user password', async () => {
+    test('Change user password', async () => {
 
         // log in
         await page.click(Header.account);
@@ -218,7 +218,7 @@ describe('User password', () => {
         );
     });
 
-    it('Cannot change password when wrong one is provided', async () => {
+    test('Cannot change password when wrong one is provided', async () => {
 
         // log in
         await page.click(Header.account);
@@ -257,7 +257,7 @@ describe('User password', () => {
         ]);
     });
 
-    it('Cannot change password when new passwords differ', async () => {
+    test('Cannot change password when new passwords differ', async () => {
 
         // log in
         await page.click(Header.account);

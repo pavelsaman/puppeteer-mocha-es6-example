@@ -12,19 +12,19 @@ const expect = chai.expect;
 const baseUrl = config.baseUrl[env.envWithLang()];
 const couponValue = 'AKCE20';
 
-describe('Clipboard discout code', () => {
+suite('Clipboard discout code', () => {
 
     let browser, context, page;
 
-    before(async () => {
+    suiteSetup(async () => {
         browser = await puppeteer.launch(browserConfig())
     });
 
-    after(async () => {
+    suiteTeardown(async () => {
         await browser.close();
     });
 
-    beforeEach(async () => {
+    setup(async () => {
         context = await browser.createIncognitoBrowserContext();
         await context.overridePermissions(baseUrl, [
             'clipboard-read'            
@@ -36,19 +36,19 @@ describe('Clipboard discout code', () => {
         );
     });
 
-    afterEach(async () => {
+    teardown(async () => {
         await takeScreenshot(page, Date.now());
         await context.close();
     });
 
-    it('Coupon has a help text on product listing page', async () => {
+    test('Coupon has a help text on product listing page', async () => {
         const productCouponHelpText = await page.$eval(ProductListing.coupon,
             el => el.getAttribute("data-title")
         );    
         expect(productCouponHelpText).not.to.be.empty;
     });
 
-    it('Coupon has a help text on product detail page', async () => {
+    test('Coupon has a help text on product detail page', async () => {
         
         const productLink = await page.$eval(
             ProductListing.productItem,
@@ -68,7 +68,7 @@ describe('Clipboard discout code', () => {
         expect(productCouponHelpText).not.to.be.empty;
     });
 
-    it('Copy discount code into clipboard from product listing', async () => { 
+    test('Copy discount code into clipboard from product listing', async () => { 
 
         await Promise.all([
             page.waitForSelector(ProductListing.productItem,
@@ -91,7 +91,7 @@ describe('Clipboard discout code', () => {
         expect(clipboardContent).to.equal(couponValue);        
     });
 
-    it('Copy discount code into clipboard from product detail', async () => {
+    test('Copy discount code into clipboard from product detail', async () => {
         
         // go to product detail page
         const productLink = await page.$eval(

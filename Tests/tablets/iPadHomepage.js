@@ -14,31 +14,31 @@ const baseUrl = config.baseUrl[env.envWithLang()];
 
 testedTables.mobileMenu.forEach(device => {
 
-    describe(device + ' homepage view', () => {
+    suite(device + ' homepage view', () => {
 
         let browser, context, page;
     
-        before(async () => {
+        suiteSetup(async () => {
             browser = await puppeteer.launch(browserConfig())
         });
     
-        after(async () => {
+        suiteTeardown(async () => {
             await browser.close();
         });
     
-        beforeEach(async () => {
+        setup(async () => {
             context = await browser.createIncognitoBrowserContext();
             page = await context.newPage();
             await page.emulate(puppeteer.devices[device]);
             await page.goto(baseUrl, { waitUntil: 'networkidle0' });
         });
     
-        afterEach(async () => {
+        teardown(async () => {
             await takeScreenshot(page, Date.now());
             await context.close();
         });
     
-        it('Hamburger menu is visible', async () => {
+        test('Hamburger menu is visible', async () => {
         
             await page.waitForFunction(
                 selector => {
@@ -51,7 +51,7 @@ testedTables.mobileMenu.forEach(device => {
             );
         });
     
-        it('Fulltext magnifying glass is visible', async () => {
+        test('Fulltext magnifying glass is visible', async () => {
         
             await page.waitForFunction(
                 selector => {
@@ -64,7 +64,7 @@ testedTables.mobileMenu.forEach(device => {
             );
         });
     
-        it('Cart icon is visible', async () => {
+        test('Cart icon is visible', async () => {
         
             await page.waitForFunction(
                 selector => document.querySelector(selector),
@@ -73,7 +73,7 @@ testedTables.mobileMenu.forEach(device => {
             );
         });
     
-        it('Open and close menu', async () => {                
+        test('Open and close menu', async () => {                
             
             await Promise.all([
                 page.click(Header.hamburger),
@@ -100,7 +100,7 @@ testedTables.mobileMenu.forEach(device => {
             ]);
         });
     
-        it('Open and close mobile search', async () => {                
+        test('Open and close mobile search', async () => {                
             
             await Promise.all([
                 page.evaluate(
@@ -136,31 +136,31 @@ testedTables.mobileMenu.forEach(device => {
 });
 
 testedTables.desktopMenu.forEach(device => {
-    describe(device + ' homepage view', () => {
+    suite(device + ' homepage view', () => {
     
         let browser, context, page;
         
-        before(async () => {
+        suiteSetup(async () => {
             browser = await puppeteer.launch(browserConfig())
         });
     
-        after(async () => {
+        suiteTeardown(async () => {
             await browser.close();
         });
     
-        beforeEach(async () => {
+        setup(async () => {
             context = await browser.createIncognitoBrowserContext();
             page = await context.newPage();
             await page.emulate(puppeteer.devices[device]);
             await page.goto(baseUrl, { waitUntil: 'networkidle0' });
         });
     
-        afterEach(async () => {
+        teardown(async () => {
             await takeScreenshot(page, Date.now());
             await context.close();
         });
     
-        it('Hamburger menu is not visible', async () => {
+        test('Hamburger menu is not visible', async () => {
         
             await page.waitForFunction(
                 selector => {
@@ -173,7 +173,7 @@ testedTables.desktopMenu.forEach(device => {
             );
         });
     
-        it('Fulltext magnifying glass is not visible', async () => {
+        test('Fulltext magnifying glass is not visible', async () => {
         
             await page.waitForFunction(
                 selector => {
