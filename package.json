@@ -4,7 +4,7 @@
     "description": "Example e2e tests in puppeteer with mocha",
     "main": "",
     "scripts": {
-        "t": "clear && mocha",
+        "t": "clear && mocha -i --grep @retired",
         "clean": "clear && rm -rf ./Results/ && mkdir -p ./Results/Screenshots"
     },
     "keywords": [],
