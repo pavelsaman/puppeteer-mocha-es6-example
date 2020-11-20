@@ -6,7 +6,12 @@
         "t": "clear && mocha -i --grep @retired",
         "clean": "clear && rm -rf ./Results/ && mkdir -p ./Results/Screenshots"
     },
-    "keywords": [],
+    "keywords": [
+        "puppeteer",
+        "mocha",
+        "e2e",
+        "fe"
+    ],
     "author": "",
     "license": "ISC",
     "devDependencies": {},
