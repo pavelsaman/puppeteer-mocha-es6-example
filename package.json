@@ -3,7 +3,7 @@
     "version": "2.0.0",
     "description": "Example e2e tests in puppeteer with mocha",
     "scripts": {
-        "t": "clear && mocha",
+        "t": "clear && mocha -i --grep @retired",
         "clean": "clear && rm -rf ./Results/ && mkdir -p ./Results/Screenshots"
     },
     "keywords": [],
