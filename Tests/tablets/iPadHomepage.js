@@ -76,7 +76,6 @@ testedTables.mobileMenu.forEach(device => {
         test('Open and close menu', async () => {                
             
             await Promise.all([
-                page.click(Header.hamburger),
                 page.waitForFunction(
                     selector => {
                         return document.querySelector(selector)
@@ -84,11 +83,11 @@ testedTables.mobileMenu.forEach(device => {
                     },
                     {},
                     Menu.container
-                )
+                ),
+                page.click(Header.hamburger)
             ]);  
             
             await Promise.all([
-                page.click(Header.hamburger),
                 page.waitForFunction(
                     selector => {
                         return !document.querySelector(selector)
@@ -96,17 +95,14 @@ testedTables.mobileMenu.forEach(device => {
                     },
                     {},
                     Menu.container
-                )
+                ),
+                page.click(Header.hamburger)
             ]);
         });
     
         test('Open and close mobile search', async () => {                
             
             await Promise.all([
-                page.evaluate(
-                    selector => document.querySelector(selector).click(),
-                    Header.glass
-                ),
                 page.waitForFunction(
                     selector => {
                         return document.querySelector(selector)
@@ -114,14 +110,14 @@ testedTables.mobileMenu.forEach(device => {
                     },
                     {},
                     Fulltext.mobileSearch
+                ),
+                page.evaluate(
+                    selector => document.querySelector(selector).click(),
+                    Header.glass
                 )
             ]);            
             
             await Promise.all([
-                page.evaluate(
-                    selector => document.querySelector(selector).click(),
-                    Header.glass
-                ),
                 page.waitForFunction(
                     selector => {
                         return !document.querySelector(selector)
@@ -129,6 +125,10 @@ testedTables.mobileMenu.forEach(device => {
                     },
                     {},
                     Fulltext.mobileSearch
+                ),
+                page.evaluate(
+                    selector => document.querySelector(selector).click(),
+                    Header.glass
                 )
             ]);
         });

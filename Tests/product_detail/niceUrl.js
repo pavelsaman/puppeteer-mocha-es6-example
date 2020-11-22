@@ -38,15 +38,15 @@ suite('Product URLs', () => {
         const product = await page.$$(ProductListing.productItem);
 
         await Promise.all([
-            product[0].click(),
-            page.waitForNavigation()
+            page.waitForNavigation(),
+            product[0].click()
         ]);
         expect(page.url()).not.to.include('Product/Detail');
         await page.goBack();
 
         await Promise.all([
-            product[1].click(),
-            page.waitForNavigation()
+            page.waitForNavigation(),
+            product[1].click()
         ]);
         expect(page.url()).not.to.include('Product/Detail');        
     });

@@ -79,11 +79,11 @@ suite('Clipboard discout code', () => {
         
         // click and copy into clipboard
         await Promise.all([
+            page.waitForFunction('navigator.clipboard.readText() != ""'),
             page.evaluate((selector) => {
                     document.querySelector(selector).click()
                 }, ProductListing.coupon
-            ),
-            page.waitForFunction('navigator.clipboard.readText() != ""')
+            )
         ]);
 
         const clipboardContent
@@ -106,11 +106,11 @@ suite('Clipboard discout code', () => {
 
         // click and copy into clipboard
         await Promise.all([
+            page.waitForFunction('navigator.clipboard.readText() != ""'),
             page.evaluate((selector) => {
                     document.querySelector(selector).click()
                 }, ProductDetail.coupon
-            ),
-            page.waitForFunction('navigator.clipboard.readText() != ""')
+            )
         ]);
 
         const clipboardContent = 

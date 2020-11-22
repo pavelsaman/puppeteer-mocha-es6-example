@@ -76,22 +76,22 @@ suite('Popups on product detail', () => {
 
         // open sizes popup
         await Promise.all([
+            popupIsOpen(page, SizesPopup.popup),
+            popupIsClosed(page, ProductPopup.popup),
             page.evaluate(
                 selector => document.querySelector(selector).click(),
                 ProductDetail.sizesLink
-            ),
-            popupIsOpen(page, SizesPopup.popup),
-            popupIsClosed(page, ProductPopup.popup)
+            )
         ]);    
         
         // close sizes popup
         await Promise.all([
+            popupIsClosed(page, SizesPopup.popup),
+            popupIsClosed(page, ProductPopup.popup),
             page.evaluate(
                 selector => document.querySelector(selector).click(),
                 SizesPopup.close
-            ),
-            popupIsClosed(page, SizesPopup.popup),
-            popupIsClosed(page, ProductPopup.popup)
+            )
         ]);
     });
 
@@ -100,29 +100,29 @@ suite('Popups on product detail', () => {
         // open and close product popup        
         await ProductDetail.addProductIntoCart(page, 1);
         await Promise.all([
-            page.click(ProductPopup.goBack),
             popupIsClosed(page, ProductPopup.popup),
-            popupIsClosed(page, SizesPopup.popup)
+            popupIsClosed(page, SizesPopup.popup),
+            page.click(ProductPopup.goBack)
         ]);
 
         // open and close sizes popup
         await Promise.all([
+            popupIsOpen(page, SizesPopup.popup),
+            popupIsClosed(page, ProductPopup.popup),
             page.evaluate(
                 selector => document.querySelector(selector).click(),
                 ProductDetail.sizesLink
-            ),
-            popupIsOpen(page, SizesPopup.popup),
-            popupIsClosed(page, ProductPopup.popup)
+            )
         ]);
 
         // close sizes popup
         await Promise.all([
+            popupIsClosed(page, SizesPopup.popup),
+            popupIsClosed(page, ProductPopup.popup),
             page.evaluate(
                 selector => document.querySelector(selector).click(),
                 SizesPopup.close
-            ),
-            popupIsClosed(page, SizesPopup.popup),
-            popupIsClosed(page, ProductPopup.popup)
+            )
         ]);
     });
 });

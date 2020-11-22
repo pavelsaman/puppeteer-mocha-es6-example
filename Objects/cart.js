@@ -4,7 +4,6 @@ class Cart {
         this.continue = '.c-cart-buttons__continue.o-button';
         this.productQuantity = '.c-step-1__item-select';
         this.removeProduct = '.c-step-1__item-remove';
-        this.warning = '.c-step-1__warning';
         this.steps = {
             one: new Cart1(),
             two: new Cart2(),

@@ -18,9 +18,9 @@ class LoginPopup {
 
         if (key === 'facebook') {
             await Promise.all([
-                fbButton.click(),
                 page.waitForNavigation({ waitUntil: 'networkidle0' }),
-                page.waitForSelector(FBLoginPage.fbAcceptCookies)
+                page.waitForSelector(FBLoginPage.fbAcceptCookies),
+                fbButton.click()
             ]);
             await page.click(FBLoginPage.fbAcceptCookies);
             await page.type(FBLoginPage.fbEmail, credentials.name);

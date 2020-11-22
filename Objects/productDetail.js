@@ -1,5 +1,4 @@
 import ProductPopup from './productPopup';
-import SizesPopup from './sizesPopup';
 
 
 class ProductDetail {
@@ -24,10 +23,6 @@ class ProductDetail {
         }
         
         await Promise.all([
-            page.evaluate(selector => {
-                    document.querySelector(selector).click()
-                }, this.addToCart
-            ),
             page.waitForFunction(
                 selector => {
                     let p = document.querySelector(selector);
@@ -38,6 +33,10 @@ class ProductDetail {
                 },
                 {},
                 ProductPopup.popup
+            ),
+            page.evaluate(selector => {
+                    document.querySelector(selector).click()
+                }, this.addToCart
             )
         ]);
     }    

@@ -66,24 +66,24 @@ suite('Create order', () => {
 
             // cart 2
             await Promise.all([
-                page.click(Cart.continue),
-                page.waitForNavigation({ waitUntil: 'networkidle0' })
+                page.waitForNavigation({ waitUntil: 'networkidle0' }),
+                page.click(Cart.continue)
             ]);
             await Promise.all([
-                Cart.steps.two.selectDeliveryMethod(page, data.deliveryMethod),
                 waitForSelected(
                     page, 
                     SummaryBox.deliveryName, 
                     data.deliveryMethod
-                )
+                ),
+                Cart.steps.two.selectDeliveryMethod(page, data.deliveryMethod)
             ]);
             await Promise.all([
-                Cart.steps.two.selectPaymentMethod(page, data.paymentMethod),
                 waitForSelected(
                     page, 
                     SummaryBox.paymentName, 
                     data.paymentMethod
-                )
+                ),
+                Cart.steps.two.selectPaymentMethod(page, data.paymentMethod)
             ]);
 
             // cart 3
@@ -97,7 +97,6 @@ suite('Create order', () => {
 
             // cart 4 == TY page
             await Promise.all([
-                page.click(Cart.continue),
                 page.waitForNavigation({ waitUntil: 'networkidle0' }),
                 page.waitForFunction(
                     (selector, lang) => {
@@ -118,7 +117,8 @@ suite('Create order', () => {
                     {},
                     Cart.steps.four.strongTYTexts,
                     env.lang()
-                )
+                ),
+                page.click(Cart.continue)
             ]);
         }).timeout(config.timeout + 15000);
     }); 

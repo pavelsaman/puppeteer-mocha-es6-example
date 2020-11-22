@@ -27,22 +27,22 @@ async function logInWithEmail (page, credentials) {
     // login popup        
     await LoginPopup.fillInCredentials(page, credentials.email);
     await Promise.all([
-        page.click(LoginPopup.popup + ' >* ' + LoginPopup.logInButton),
-        page.waitForSelector(FlashMessage.info, { visibility: true })
+        page.waitForSelector(FlashMessage.info, { visibility: true }),
+        page.click(LoginPopup.popup + ' >* ' + LoginPopup.logInButton)
     ]);
 }
 
 async function goIntoOrders (page) {
     // go into orders in profile
     await Promise.all([
+        page.waitForNavigation({ waitUntil: 'networkidle2' }),
         page.evaluate(selector => document.querySelector(selector).click(),
             Header.account
-        ),
-        page.waitForNavigation({ waitUntil: 'networkidle2' })
+        )
     ]);
     await Promise.all([
-        page.click(ProfileMenu.orders),
-        page.waitForNavigation({ waitUntil: 'networkidle0' })
+        page.waitForNavigation({ waitUntil: 'networkidle0' }),
+        page.click(ProfileMenu.orders)
     ]);
 }
 
@@ -77,8 +77,8 @@ suite('Profile orders', () => {
         // open order detail
         const orders = await page.$$(UserOrders.orderItem);
         await Promise.all([
-            orders[0].click(),
-            page.waitForSelector(UserOrders.orderDetail)
+            page.waitForSelector(UserOrders.orderDetail),
+            orders[0].click()
         ]);
 
         // close order detail
@@ -125,15 +125,15 @@ suite('Profile orders', () => {
 
         const orders = await page.$$(UserOrders.orderItem);
         await Promise.all([
-            orders[0].click(),
-            page.waitForSelector(UserOrders.orderDetail)
+            page.waitForSelector(UserOrders.orderDetail),
+            orders[0].click()
         ]);
 
         const productLinks = await page.$$(UserOrders.productLink);
         await Promise.all([
-            productLinks[0].click(),
             page.waitForNavigation(),
-            page.waitForSelector(ProductDetail.name, { visibility: true })
+            page.waitForSelector(ProductDetail.name, { visibility: true }),
+            productLinks[0].click()
         ]);
     });
 
@@ -143,8 +143,8 @@ suite('Profile orders', () => {
 
         const orders = await page.$$(UserOrders.orderItem);
         await Promise.all([
-            orders[0].click(),
-            page.waitForSelector(UserOrders.orderDetail)
+            page.waitForSelector(UserOrders.orderDetail),
+            orders[0].click()
         ]);
 
         const productLink = await page.$eval(

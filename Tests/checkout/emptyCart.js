@@ -28,13 +28,13 @@ suite('Empty cart', () => {
         page = await context.newPage();
         await page.goto(baseUrl), { waitUntil: 'networkidle0' };
         await Promise.all([
+            page.waitForNavigation({ waitUntil: 'networkidle0' }),
             page.evaluate(
                 selector => {
                     document.querySelector(selector).click();
                 },
                 Header.cart
-            ),
-            page.waitForNavigation({ waitUntil: 'networkidle0' })
+            )
         ]);
     });
 
@@ -54,8 +54,8 @@ suite('Empty cart', () => {
     test('Can go back to homepage', async () => {
 
         await Promise.all([
-            page.click(Cart.steps.one.goShopping),
-            page.waitForNavigation({ waitUntil: 'networkidle0' })
+            page.waitForNavigation({ waitUntil: 'networkidle0' }),
+            page.click(Cart.steps.one.goShopping)
         ]);
 
         const url = await page.url();

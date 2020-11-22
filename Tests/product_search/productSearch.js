@@ -96,20 +96,20 @@ suite('Product search', () => {
         await page.type(Fulltext.input, searchTerm);        
         await waitForSearchSuggestions(page, searchTerm);
         await page.click(Fulltext.close);
-        await Promise.all([
-            page.waitForSelector(Fulltext.searchContainer,
-                { visibility: false })
-        ]);
+        await page.waitForSelector(
+            Fulltext.searchContainer,
+            { visibility: false }
+        );
     });
 
     test('Dropdown disappears after clicking elsewhere', async () => {
         await page.type(Fulltext.input, searchTerm);        
         await waitForSearchSuggestions(page, searchTerm);
         await page.click(InfoStripe.stripe);
-        await Promise.all([
-            page.waitForSelector(Fulltext.searchContainer,
-                { visibility: false })
-        ]);
+        await page.waitForSelector(
+            Fulltext.searchContainer,
+            { visibility: false }
+        );
     });
 
     test('Search with keyword and click "show more"', async () => {
@@ -136,7 +136,7 @@ suite('Product search', () => {
     });
 
     invalidSearchTerms.forEach(term => {
-        test('Search for invalid term "' + term + '"', async () => {
+        test.only('Search for invalid term "' + term + '"', async () => {
             await page.type(Fulltext.input, term);
             await page.waitForSelector(Fulltext.close, { visibility: true });
             await page.click(Fulltext.glass);

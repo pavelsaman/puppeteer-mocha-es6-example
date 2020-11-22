@@ -43,23 +43,23 @@ suite('Valid login', () => {
             // home page
             await page.waitForSelector(Header.account, { visibility: true });
             await Promise.all([
-                page.click(Header.account),
-                page.waitForSelector(LoginPopup.popup, { visibility: true })
+                page.waitForSelector(LoginPopup.popup, { visibility: true }),
+                page.click(Header.account)
             ]);
     
             // login popup        
             await LoginPopup.fillInCredentials(page, c, key);
             if (key === "facebook") {
                 await Promise.all([
-                    page.click(FBLoginPage.fbLoginButton),
-                    page.waitForNavigation({ waitUntil: 'networkidle0' })
+                    page.waitForNavigation({ waitUntil: 'networkidle0' }),
+                    page.click(FBLoginPage.fbLoginButton)
                 ]);
             } else {
                 await Promise.all([
+                    page.waitForSelector(FlashMessage.info),
                     page.click(LoginPopup.popup + ' >* ' 
                         + LoginPopup.logInButton
-                    ),
-                    page.waitForSelector(FlashMessage.info)
+                    )
                 ]);    
             }            
     

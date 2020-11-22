@@ -116,28 +116,28 @@ suite('User password', () => {
         await page.click(Header.account);
         await LoginPopup.fillInCredentials(page, credentials.email);
         await Promise.all([
-            page.click(LoginPopup.logInButton),
-            flashIsVisible(page, FlashMessage.info)
+            flashIsVisible(page, FlashMessage.info),
+            page.click(LoginPopup.logInButton)
         ]);        
 
         // go to user profile, password fields are hidden, save btn is disabled
         await Promise.all([
+            page.waitForNavigation({ waitUntil: 'networkidle0'}),
+            passwordFieldsAreNotVisible(page),
+            saveBtnIsDisabled(page),
             page.evaluate(
                 selector => {
                     document.querySelector(selector).click()
                 },
                 Header.account
-            ),
-            page.waitForNavigation({ waitUntil: 'networkidle0'}),
-            passwordFieldsAreNotVisible(page),
-            saveBtnIsDisabled(page)
+            )
         ]);
 
         // display password fields, send btn is enabled
         await Promise.all([
-            page.click(ProfileHomepage.showPasswordFields),
             passwordFieldsAreVisible(page),
-            saveBtnIsEnabled(page)
+            saveBtnIsEnabled(page),
+            page.click(ProfileHomepage.showPasswordFields)
         ]);
 
         // fill in new password
@@ -148,30 +148,30 @@ suite('User password', () => {
             newPassword
         );
         await Promise.all([
-            page.click(ProfileHomepage.save),
             flashIsVisible(page, FlashMessage.info),
             passwordFieldsAreNotVisible(page),
-            saveBtnIsDisabled(page)
+            saveBtnIsDisabled(page),
+            page.click(ProfileHomepage.save)
         ]);
 
         // log out
         await Promise.all([
+            page.waitForNavigation({ waitUntil: 'networkidle0'}),
+            flashIsVisible(page, FlashMessage.info),
             page.evaluate(
                 selector => {
                     document.querySelector(selector).click()
                 },
                 ProfileMenu.logout
-            ),
-            page.waitForNavigation({ waitUntil: 'networkidle0'}),
-            flashIsVisible(page, FlashMessage.info)
+            )
         ]);
 
         // cannot login with old pwd
         await page.click(Header.account);
         await LoginPopup.fillInCredentials(page, credentials.email);
         await Promise.all([
-            page.click(LoginPopup.logInButton),
-            flashIsVisible(page, FlashMessage.warning)
+            flashIsVisible(page, FlashMessage.warning),
+            page.click(LoginPopup.logInButton)
         ]);
 
         // change pwd back
@@ -187,8 +187,8 @@ suite('User password', () => {
         };
         await LoginPopup.fillInCredentials(page, newCredentials);
         await Promise.all([
-            page.click(LoginPopup.logInButton),
-            flashIsVisible(page, FlashMessage.info)
+            flashIsVisible(page, FlashMessage.info),
+            page.click(LoginPopup.logInButton)
         ]);
         await Promise.all([
             page.evaluate(
@@ -207,8 +207,8 @@ suite('User password', () => {
             credentials.email.password
         );
         await Promise.all([
-            page.click(ProfileHomepage.save),
-            flashIsVisible(page, FlashMessage.info)
+            flashIsVisible(page, FlashMessage.info),
+            page.click(ProfileHomepage.save)
         ]);
         await page.evaluate(
             selector => {
@@ -230,15 +230,15 @@ suite('User password', () => {
 
         // go to user profile, password fields are hidden, save btn is disabled
         await Promise.all([
+            page.waitForNavigation({ waitUntil: 'networkidle0'}),
+            passwordFieldsAreNotVisible(page),
+            saveBtnIsDisabled(page),
             page.evaluate(
                 selector => {
                     document.querySelector(selector).click()
                 },
                 Header.account
-            ),
-            page.waitForNavigation({ waitUntil: 'networkidle0'}),
-            passwordFieldsAreNotVisible(page),
-            saveBtnIsDisabled(page)
+            )
         ]);
 
         // fill in wrong current password
@@ -250,10 +250,10 @@ suite('User password', () => {
             newPassword
         );
         await Promise.all([
-            page.click(ProfileHomepage.save),
             flashIsVisible(page, FlashMessage.warning),
             passwordFieldsAreNotVisible(page),
-            saveBtnIsDisabled(page)
+            saveBtnIsDisabled(page),
+            page.click(ProfileHomepage.save)
         ]);
     });
 
@@ -263,21 +263,21 @@ suite('User password', () => {
         await page.click(Header.account);
         await LoginPopup.fillInCredentials(page, credentials.email);
         await Promise.all([
-            page.click(LoginPopup.logInButton),
-            flashIsVisible(page, FlashMessage.info)
+            flashIsVisible(page, FlashMessage.info),
+            page.click(LoginPopup.logInButton)
         ]);        
 
         // go to user profile, password fields are hidden, save btn is disabled
         await Promise.all([
+            page.waitForNavigation({ waitUntil: 'networkidle0'}),
+            passwordFieldsAreNotVisible(page),
+            saveBtnIsDisabled(page),
             page.evaluate(
                 selector => {
                     document.querySelector(selector).click()
                 },
                 Header.account
-            ),
-            page.waitForNavigation({ waitUntil: 'networkidle0'}),
-            passwordFieldsAreNotVisible(page),
-            saveBtnIsDisabled(page)
+            )
         ]);
 
         // fill in wrong current password
@@ -289,8 +289,8 @@ suite('User password', () => {
             newPassword + newPassword
         );
         await Promise.all([
-            page.click(ProfileHomepage.save),
-            page.waitForSelector(ProfileHomepage.newPasswordError)
+            page.waitForSelector(ProfileHomepage.newPasswordError),
+            page.click(ProfileHomepage.save)
         ]);
     });
 });

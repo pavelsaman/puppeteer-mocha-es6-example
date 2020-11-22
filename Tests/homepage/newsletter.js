@@ -50,12 +50,12 @@ suite('Newsletter', () => {
         await page.type(Newsletter.email, config.testerEmail);
         await page.click(Newsletter.checkbox);
         await Promise.all([
-            page.click(Newsletter.send),
             page.waitForFunction(
                 selector => document.querySelector(selector),
                 {},
                 FlashMessage.confirmation
-            )
+            ),
+            page.click(Newsletter.send)
         ]);
     });
 
