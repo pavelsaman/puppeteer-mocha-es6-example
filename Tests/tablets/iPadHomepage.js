@@ -1,5 +1,4 @@
 import puppeteer from 'puppeteer';
-import chai from 'chai';
 import config from '../../config';
 import * as env from '../../Helpers/env';
 import browserConfig from '../../Helpers/browserOptions';
@@ -7,12 +6,12 @@ import takeScreenshot from '../../Helpers/screenshot';
 import Header from '../../Objects/header';
 import Menu from '../../Objects/menu';
 import Fulltext from '../../Objects/fulltext';
-import testedTables from '../../Resources/testedTables.json';
+import testedTablets from '../../Resources/testedTablets.json';
 
 
 const baseUrl = config.baseUrl[env.envWithLang()];
 
-testedTables.mobileMenu.forEach(device => {
+testedTablets.mobileMenu.forEach(device => {
 
     suite(device + ' homepage view', () => {
 
@@ -135,7 +134,7 @@ testedTables.mobileMenu.forEach(device => {
     });
 });
 
-testedTables.desktopMenu.forEach(device => {
+testedTablets.desktopMenu.forEach(device => {
     suite(device + ' homepage view', () => {
     
         let browser, context, page;
